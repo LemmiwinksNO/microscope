@@ -15,10 +15,14 @@ Template.postSubmit.events({
 
     // Meteor method post insertion ('methodName', arguments, callback)
     Meteor.call('post', post, function(error, id) {
-      if (error)
-        return alert(error.reason);
-
-      Router.go('postPage', post);
+      if (error) {
+        // display the error to the user
+        throwError(error.reason);
+        if (error.error === 302)
+          Router.go('postPage', {_id: error.details});
+      } else {
+        Router.go('postPage', {_id: id});
+      }
     });
   }
 });
