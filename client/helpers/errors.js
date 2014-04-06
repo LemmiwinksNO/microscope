@@ -1,11 +1,12 @@
-// Local (client-only) collection
-Errors = new Meteor.Collection(null);
+Errors = {
+  // Local (client-only) collection
+  collection: new Meteor.Collection(null),
 
-throwError = function(message) {
-  Errors.insert({message: message, seen: false});
-};
-
-// Clears 'seen' errors
-clearErrors = function() {
-  Errors.remove({seen: true});
+  throw: function(message) {
+    Errors.collection.insert({message: message, seen: false});
+  },
+  // Clears 'seen' errors
+  clearSeen: function() {
+    Errors.collection.remove({seen: true});
+  }
 };

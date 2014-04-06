@@ -1,5 +1,9 @@
 Posts = new Meteor.Collection('posts');
 
+// Another way of doing this
+// db = db || {};
+// db.posts = new Meteor.Collection('posts');
+
 // Users can only update or remove their own posts.
 Posts.allow({
   update: ownsDocument,

@@ -1,6 +1,6 @@
 Template.errors.helpers({
   errors: function() {
-    return Errors.find();
+    return Errors.collection.find();
   }
 });
 
@@ -12,6 +12,6 @@ Template.errors.helpers({
 Template.error.rendered = function() {
   var error = this.data;
   Meteor.defer(function() {
-    Errors.update(error._id, {$set: {seen: true}});
+    Errors.collection.update(error._id, {$set: {seen: true}});
   });
 };
