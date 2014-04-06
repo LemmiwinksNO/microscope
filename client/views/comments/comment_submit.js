@@ -1,0 +1,21 @@
+// Submit a new comment
+Template.commentSubmit.events({
+  'submit form': function(e, template) {
+    e.preventDefault();
+
+    var $body = $(e.target).find('[name=body]');
+    var comment = {
+      body: $body.val(),
+      postId: template.data._id
+    };
+
+    // Call comment Meteor method
+    Meteor.call('comment', comment, function(error, commentId) {
+      if (error){
+        Errors.throw(error.reason);
+      } else {
+        $body.val('');
+      }
+    });
+  }
+});

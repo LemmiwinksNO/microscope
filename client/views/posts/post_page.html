@@ -1,4 +1,15 @@
 <!-- Post's unique page -->
 <template name="postPage">
   {{> postItem}}
+  <ul class="comments">
+    {{#each comments}}
+      {{> comment}}
+    {{/each}}
+  </ul>
+  <!-- If this is a logged in user, show them commentSubmit template -->
+  {{#if currentUser}}
+    {{> commentSubmit}}
+  {{else}}
+    <p>Please log in to leave a comment.</p>
+  {{/if}}
 </template>
