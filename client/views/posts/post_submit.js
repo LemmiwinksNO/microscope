@@ -9,10 +9,6 @@ Template.postSubmit.events({
       message: $(e.target).find('[name=message]').val()
     };
 
-    // Simple collection insertion.
-    // post._id = Posts.insert(post);  // need _id for router to construct the url.
-    // Router.go('postPage', post);
-
     // Meteor method post insertion ('methodName', arguments, callback)
     Meteor.call('post', post, function(error, id) {
       if (error) {

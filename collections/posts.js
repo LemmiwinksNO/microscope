@@ -1,17 +1,17 @@
-Posts = new Meteor.Collection('posts');
 
-// Another way of doing this
-// db = db || {};
-// db.posts = new Meteor.Collection('posts');
+if (typeof db === 'undefined')
+  db = {};
+
+db.posts = new Meteor.Collection('posts');
 
 // Users can only update or remove their own posts.
-Posts.allow({
+db.posts.allow({
   update: ownsDocument,
   remove: ownsDocument
 });
 
 // User can only edit specific fields
-Posts.deny({
+db.posts.deny({
   update: function(userId, post, fieldNames) {
     // may only edit the following two fields:
     return (_.without(fieldNames, 'url', 'title').length > 0);
@@ -22,7 +22,7 @@ Posts.deny({
 Meteor.methods({
   post: function(postAttributes) {
     var user = Meteor.user(),
-        postWithSameLink = Posts.findOne({url: postAttributes.url});
+        postWithSameLink = db.posts.findOne({url: postAttributes.url});
 
     // ensure the user is logged in
     if (!user)
@@ -45,7 +45,7 @@ Meteor.methods({
       commentsCount: 0
     });
 
-    var postId = Posts.insert(post);
+    var postId = db.posts.insert(post);
 
     return postId;
   }

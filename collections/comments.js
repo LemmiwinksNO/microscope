@@ -1,10 +1,14 @@
-Comments = new Meteor.Collection('comments');
+
+if (typeof db === 'undefined')
+  db = {};
+
+db.comments = new Meteor.Collection('comments');
 
 Meteor.methods({
 // Meteor method for posting a comment
   comment: function(commentAttributes) {
     var user = Meteor.user();
-    var post = Posts.findOne(commentAttributes.postId);
+    var post = db.posts.findOne(commentAttributes.postId);
 
     // ensure the user is logged in, wrote content, comment is linked to a post
     if (!user)
@@ -22,8 +26,8 @@ Meteor.methods({
     });
 
     // Update the post with the number of comments
-    Posts.update(comment.postId, {$inc: {commentsCount: 1}});
+    db.posts.update(comment.postId, {$inc: {commentsCount: 1}});
 
-    return Comments.insert(comment);
+    return db.comments.insert(comment);
   }
 });

@@ -10,7 +10,7 @@ Template.postEdit.events({
       title: $(e.target).find('[name=title]').val()
     };
 
-    Posts.update(currentPostId, {$set: postProperties}, function(error){
+    db.posts.update(currentPostId, {$set: postProperties}, function(error){
       if (error) {
         // display the error to the user
         alert(error.reason);
@@ -25,7 +25,7 @@ Template.postEdit.events({
 
     if (confirm("Delete this post?")) {
       var currentPostId = this._id;
-      Posts.remove(currentPostId);
+      db.posts.remove(currentPostId);
       Router.go('postsList');
     }
   }

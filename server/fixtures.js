@@ -1,5 +1,5 @@
 // Fixture data
-if (Posts.find().count() === 0) {
+if (db.posts.find().count() === 0) {
   var now = new Date().getTime();
 
   // create two users
@@ -12,7 +12,7 @@ if (Posts.find().count() === 0) {
   });
   var sacha = Meteor.users.findOne(sachaId);
 
-  var telescopeId = Posts.insert({
+  var telescopeId = db.posts.insert({
     title: 'Introducing Telescope',
     userId: sacha._id,
     author: sacha.profile.name,
@@ -21,7 +21,7 @@ if (Posts.find().count() === 0) {
     commentsCount: 2
   });
 
-  Comments.insert({
+  db.comments.insert({
     postId: telescopeId,
     userId: tom._id,
     author: tom.profile.name,
@@ -29,7 +29,7 @@ if (Posts.find().count() === 0) {
     body: 'You sure can Tom!'
   });
 
-  Posts.insert({
+  db.posts.insert({
     title: 'Meteor',
     userId: tom._id,
     author: tom.profile.name,
@@ -38,7 +38,7 @@ if (Posts.find().count() === 0) {
     commentsCount: 0
   });
 
-  Posts.insert({
+  db.posts.insert({
     title: 'The Meteor Book',
     userId: tom._id,
     author: tom.profile.name,
