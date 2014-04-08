@@ -10,8 +10,11 @@
       <a href="{{pathFor 'postsList'}}" class="brand">Microscope</a>
       <div class="nav-collapse collapse">
         <ul class="nav">
-          <!-- New Post Button (only show to logged in user) -->
-          {{#if currentUser}}<li><a href="{{pathFor 'postSubmit'}}">New</a></li>{{/if}}
+          {{#if currentUser}}
+            <!-- Submit Post Button (only show to logged in user) -->
+            <li><a href="{{pathFor 'postSubmit'}}">Submit Post</a></li>
+            <li class="dropdown">{{> notifications}}</li>
+          {{/if}}
         </ul>
         <!-- Login Buttons -->
         <ul class="nav pull-right">

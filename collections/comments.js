@@ -25,9 +25,24 @@ Meteor.methods({
       submitted: new Date().getTime()
     });
 
+    // Could instead do
+    // comment = {
+    //  postId: commentAttributes.postId,
+    //  body: commentAttributes.body,
+    //  userId: user._id,
+    //  author: user.username,
+    //  submitted: new Date().getTime()
+    // }
+
     // Update the post with the number of comments
     db.posts.update(comment.postId, {$inc: {commentsCount: 1}});
 
-    return db.comments.insert(comment);
+    // Create the comment, save the id
+    comment._id = db.comments.insert(comment);
+
+    // now create a notification, informing the user that there's been a comment
+    createCommentNotification(comment);
+
+    return comment._id;
   }
 });

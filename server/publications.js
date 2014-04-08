@@ -7,3 +7,10 @@ Meteor.publish('posts', function() {
 Meteor.publish('comments', function(postId) {
  return db.comments.find({postId: postId});
 });
+
+// Return notifications for this user
+Meteor.publish('notifications', function() {
+  // publish function has current user's _id available
+  // as this.userId
+  return db.notifications.find({userId: this.userId});
+});
