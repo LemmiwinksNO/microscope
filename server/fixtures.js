@@ -46,4 +46,14 @@ if (db.posts.find().count() === 0) {
     submitted: now - 10 * 3600 * 1000,
     commentsCount: 0
   });
+  for (var i = 0; i < 10; i++){
+    db.posts.insert({
+        title: 'Test post #' + i,
+        userId: 123455,
+        author: sacha.profile.name,
+        url: 'http://google.com/?q=test-' + i,
+        submitted: now - i * 3600 * 1000,
+        commentsCount: 0
+    });
+  }
 }

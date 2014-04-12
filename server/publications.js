@@ -1,6 +1,12 @@
-// Publish entire posts collection
-Meteor.publish('posts', function() {
-  return db.posts.find();
+// Publish postsLimit # of posts
+// NOTE: We're passing through options from user directly into find,
+// not a secure idea. Right now all they can do is change # of pages.
+Meteor.publish('posts', function(options) {
+  return db.posts.find({}, options);
+});
+
+Meteor.publish('singlePost', function(id) {
+  return id && db.posts.find(id);
 });
 
 // Publish comments for passed in postId
